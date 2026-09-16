@@ -3,7 +3,16 @@
 import os
 import shutil
 
-NAMES = {'site', '.cache', '.pytest_cache', '.ruff_cache', '.mypy_cache', '__pycache__', 'htmlcov'}
+NAMES = {
+    'site',
+    '.cache',
+    '.private',
+    '.pytest_cache',
+    '.ruff_cache',
+    '.mypy_cache',
+    '__pycache__',
+    'htmlcov',
+}
 
 for root, dirs, _ in os.walk('.', topdown=True):
     dirs[:] = [d for d in dirs if d not in ('.venv', '.venvs', '.git')]

@@ -1,7 +1,7 @@
 # Integrify — project guide
 
 Integrify is a family of Python libraries that wrap Azerbaijani service APIs
-(payments, SMS, POS, customs) behind one small, consistent client abstraction.
+(payments, SMS, POS) behind one small, consistent client abstraction.
 This repo is a **uv workspace monorepo**: every integration is its own
 distribution under `packages/*`, published independently to PyPI, all sharing
 the `integrify` PEP 420 namespace.
@@ -67,7 +67,8 @@ just lint           # ruff check + ruff format --check
 just type-check     # ty check packages
 just test           # scripts/run_tests.py (per-package pytest processes, with coverage)
 just coverage       # combine + report + html
-just docs           # zensical build -f docs/az/mkdocs.yml --strict
+just docs           # scripts/build_docs.py: public az+en + private sections -> docs/site
+just docs-public    # same, public sections only
 just secure         # bandit
 just all            # format + lint + test + docs
 ```
@@ -148,14 +149,52 @@ any package that relies on the new behaviour.
 
 ## Private integrations
 
-Not every integration lives here. `integrify-ecustoms` (State Customs Committee,
-Carriers V4) is maintained in a **private** sibling repository,
-`integrify-sdk/integrify-ecustoms`, because that API is provided under a carrier
-contract. It contributes `integrify.ecustoms` to the same PEP 420 namespace and
-follows these same conventions, but is installed from git rather than PyPI.
+Not every integration lives here. There are some in the **private** repository because  API is provided under a carrier contract. However, library contributes  to the same PEP 420 namespace and follows these same conventions, but is installed from git rather than PyPI.
 
 This repo keeps only a stub page at
-`docs/az/docs/integrations/ecustoms/index.md`. Never add mkdocstrings (`:::`)
-directives for it here — that would render the exact API surface the private repo
-exists to protect. For the same reason `packages/ecustoms/` must not reappear
-under `packages/*`.
+`docs/az/docs/integrations/<private>/index.md`. Never add mkdocstrings (`:::`)
+directives, its source path, or copies of its pages here — that would render the
+exact API surface the private repo exists to protect. For the same reason
+`packages/<private>/` must not reappear under `packages/*`.
+
+### How private docs are published
+
+Each private repo keeps its own standalone Zensical site (`docs/<lang>/mkdocs.yml`).
+`scripts/build_docs.py` builds it separately and publishes it under
+`/private/<name>/` (`/en/private/<name>/` for English), which
+`netlify/edge-functions/private-docs.ts` puts behind a password page (a correct
+password sets a signed, HttpOnly cookie for 30 days; `?logout` clears it). Because it is
+a separate build, its pages, search index, sitemap and `objects.inv` never touch
+the public site; the script's leak check fails the build if they do.
+
+```
+docs/private.yml                         # site URL, languages, list of private repos (no secrets)
+scripts/build_docs.py                    # public build + private builds + leak check
+netlify/edge-functions/private-docs.ts   # password page + session cookie on */private/*
+.private/<name>/                         # fetched private sources (gitignored)
+```
+
+Where the private sources come from: `PRIVATE_DOCS_<NAME>_PATH` (local path) →
+`PRIVATE_DOCS_TOKEN` (fetched from GitHub) → a sibling checkout
+`../<repo name>` → otherwise skipped. `PRIVATE_DOCS_REQUIRED=1` (set for
+production in `netlify.toml`) turns "skipped" into a build failure.
+
+Netlify environment variables:
+
+| Variable | Scope | Value |
+| --- | --- | --- |
+| `PRIVATE_DOCS_TOKEN` | Builds | Fine-grained GitHub token, **Contents: read-only**, only on the private repos. Mark as secret. |
+| `DOCS_AUTH_<NAME>` | Functions | The password. Several (e.g. one per team) can be separated by commas or newlines; removing one logs out everyone who used it. Unset = section locked. |
+
+Each private repo triggers a rebuild through a Netlify build hook stored as its
+`NETLIFY_BUILD_HOOK` secret (`.github/workflows/docs.yml` there).
+
+### Adding a private integration
+
+1. In the private repo: a standalone `docs/<lang>/mkdocs.yml` that builds with
+   `--strict`, plus the `docs.yml` workflow.
+2. Here: an entry under `private:` in `docs/private.yml`, and a public stub page
+   that links to `/private/<name>/`.
+3. GitHub: add the repo to `PRIVATE_DOCS_TOKEN`'s repository access.
+4. Netlify: set `DOCS_AUTH_<NAME>` (Functions scope), create a build hook and save
+   it as `NETLIFY_BUILD_HOOK` in the private repo.

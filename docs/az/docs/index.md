@@ -28,4 +28,4 @@ Bütün sorğuların həm **sinxron**, həm də **asinxron** versiyası var və 
 
 ## Töhfə
 
-Layihə [GitHub](https://github.com/Integrify-SDK/integrify-python)-da açıq mənbədir. Töhfələr gözlənilir!
+Layihə [GitHub](https://github.com/integrify-sdk/integrify-python)-da açıq mənbədir. Töhfələr gözlənilir!

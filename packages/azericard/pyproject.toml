@@ -38,7 +38,7 @@ dependencies = ["integrify-core>=1.2.0,<2", "rsa>=4.9.1"]
 
 [project.urls]
 Homepage = "https://integrify.mmzeynalli.dev/integrations/azericard/about"
-Repository = "https://github.com/Integrify-SDK/integrify-python/tree/main/packages/azericard"
+Repository = "https://github.com/integrify-sdk/integrify-python/tree/main/packages/azericard"
 Documentation = "https://integrify.mmzeynalli.dev/integrations/azericard/about"
 
 [tool.hatch.build.targets.sdist]

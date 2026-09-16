@@ -24,14 +24,17 @@ from integrify.ecustoms import ECustomsClient      # məxfi paket
 ## Giriş { #access }
 
 Paketə giriş üçün DGK ilə daşıyıcı müqaviləniz olmalıdır. Müraciət üçün:
-[Integrify-SDK](https://github.com/integrify-sdk) komandası ilə əlaqə saxlayın.
+[integrify-sdk](https://github.com/integrify-sdk) komandası ilə əlaqə saxlayın.
 
 Giriş verildikdən sonra paket birbaşa məxfi repodan quraşdırılır:
 
 ```toml
 [tool.uv.sources]
-integrify-ecustoms = { git = "ssh://git@github.com/integrify-sdk/integrify-ecustoms.git", tag = "v1.0.0" }
+integrify-ecustoms = { git = "ssh://git@github.com/integrify-sdk/integrify-ecustoms-python.git", subdirectory = "packages/ecustoms", tag = "v1.0.0" }
 ```
 
-Sorğuların tam siyahısı, mühit dəyişənləri və API referansı həmin reponun
-daxili sənəd saytındadır.
+## Sənəd { #docs }
+
+Sorğuların tam siyahısı, mühit dəyişənləri və API referansı şifrə ilə qorunan
+[məxfi sənəd bölməsindədir](/private/ecustoms/). Giriş məlumatları paketə giriş
+verilən komandalara ayrıca təqdim olunur.

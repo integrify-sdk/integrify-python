@@ -38,7 +38,7 @@ dependencies = ["integrify-core>=1.2.0,<2"]
 
 [project.urls]
 Homepage = "https://integrify.mmzeynalli.dev/integrations/kapitalbank/about"
-Repository = "https://github.com/Integrify-SDK/integrify-python/tree/main/packages/kapitalbank"
+Repository = "https://github.com/integrify-sdk/integrify-python/tree/main/packages/kapitalbank"
 Documentation = "https://integrify.mmzeynalli.dev/integrations/kapitalbank/about"
 
 [tool.hatch.build.targets.sdist]

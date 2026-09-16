@@ -1,0 +1,57 @@
+name: Docs
+
+# The docs of this repo are published by the public integrify-python site build
+# (scripts/build_docs.py there) at /private/ecustoms/, behind a password.
+# This workflow checks they still build, then asks Netlify to rebuild.
+#
+# Secret: NETLIFY_BUILD_HOOK — Netlify → Site configuration → Build & deploy →
+# Build hooks (branch: main).
+
+on:
+  push:
+    branches: [main]
+    tags: ['v*']
+    paths:
+      - 'docs/**'
+      - 'packages/*/src/**'
+      - '.github/workflows/docs.yml'
+  pull_request:
+    paths:
+      - 'docs/**'
+      - 'packages/*/src/**'
+  workflow_dispatch:
+
+jobs:
+  build:
+    name: Build (strict)
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Install uv
+        uses: astral-sh/setup-uv@v5
+        with:
+          python-version: "3.12"
+
+      - name: Install dependencies
+        run: uv sync --all-packages --no-group dev
+
+      - name: Build docs
+        run: uv run --no-sync zensical build -f docs/az/mkdocs.yml --strict
+
+  deploy:
+    name: Trigger site rebuild
+    needs: build
+    if: github.event_name != 'pull_request'
+    runs-on: ubuntu-latest
+    steps:
+      - name: Call Netlify build hook
+        env:
+          HOOK: ${{ secrets.NETLIFY_BUILD_HOOK }}
+        run: |
+          if [ -z "$HOOK" ]; then
+            echo "::warning::NETLIFY_BUILD_HOOK is not set; the public site was not rebuilt."
+            exit 0
+          fi
+          curl -fsS -X POST -d '{}' "$HOOK" > /dev/null
+          echo "Netlify rebuild triggered."

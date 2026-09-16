@@ -25,21 +25,21 @@ Use `git subtree add` for each package.
 ```bash
 # Shared core first.
 git subtree add --prefix=packages/core \
-  https://github.com/Integrify-SDK/integrify-core-python.git main
+  https://github.com/integrify-sdk/integrify-core-python.git main
 
 # Integrations.
 git subtree add --prefix=packages/epoint \
-  https://github.com/Integrify-SDK/integrify-epoint-python.git main
+  https://github.com/integrify-sdk/integrify-epoint-python.git main
 git subtree add --prefix=packages/kapitalbank \
-  https://github.com/Integrify-SDK/integrify-kapitalbank-python.git main
+  https://github.com/integrify-sdk/integrify-kapitalbank-python.git main
 git subtree add --prefix=packages/azericard \
-  https://github.com/Integrify-SDK/integrify-azericard-python.git main
+  https://github.com/integrify-sdk/integrify-azericard-python.git main
 git subtree add --prefix=packages/clopos \
-  https://github.com/Integrify-SDK/integrify-clopos-python.git main
+  https://github.com/integrify-sdk/integrify-clopos-python.git main
 git subtree add --prefix=packages/lsim \
-  https://github.com/Integrify-SDK/integrify-lsim-python.git main
+  https://github.com/integrify-sdk/integrify-lsim-python.git main
 git subtree add --prefix=packages/postaguvercini \
-    https://github.com/Integrify-SDK/integrify-postaguvercini-python.git main
+    https://github.com/integrify-sdk/integrify-postaguvercini-python.git main
 ```
 
 Why subtree:
@@ -94,7 +94,7 @@ If old repositories are still receiving commits briefly, pull updates using:
 
 ```bash
 git subtree pull --prefix=packages/epoint \
-    https://github.com/Integrify-SDK/integrify-epoint-python.git main
+    https://github.com/integrify-sdk/integrify-epoint-python.git main
 ```
 
 Stop this once the old repository is frozen.

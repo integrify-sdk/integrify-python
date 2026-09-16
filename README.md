@@ -2,18 +2,18 @@
 
 <!-- markdownlint-disable MD033 -->
 <p align="center">
-  <a href="https://integrify.mmzeynalli.dev/"><img width="400" src="https://raw.githubusercontent.com/Integrify-SDK/integrify-python/main/docs/assets/integrify.png" alt="Integrify"></a>
+  <a href="https://integrify.mmzeynalli.dev/"><img width="400" src="https://raw.githubusercontent.com/integrify-sdk/integrify-python/main/docs/assets/integrify.png" alt="Integrify"></a>
 </p>
 
 <p align="center">
   <a href="https://pypi.org/project/integrify/"><img alt="PyPI package" src="https://img.shields.io/pypi/v/integrify?color=%2334D058&label=pypi%20package"></a>
   <a href="https://pypi.org/project/integrify/"><img alt="Supported Python versions" src="https://img.shields.io/pypi/pyversions/integrify.svg?color=%2334D058"></a>
   <a href="https://pepy.tech/project/integrify"><img alt="Downloads" src="https://static.pepy.tech/badge/integrify"></a>
-  <a href="https://coverage-badge.samuelcolvin.workers.dev/redirect/Integrify-SDK/integrify-python"><img alt="Coverage" src="https://coverage-badge.samuelcolvin.workers.dev/Integrify-SDK/integrify-python.svg"></a>
+  <a href="https://coverage-badge.samuelcolvin.workers.dev/redirect/integrify-sdk/integrify-python"><img alt="Coverage" src="https://coverage-badge.samuelcolvin.workers.dev/integrify-sdk/integrify-python.svg"></a>
   <br>
   <a href="https://www.gnu.org/licenses/mit.en.html"><img alt="License" src="https://img.shields.io/badge/license-MIT-16A34A"></a>
   <a href="https://docs.astral.sh/uv/"><img alt="uv workspace" src="https://img.shields.io/badge/uv-workspace-111827?logo=python&logoColor=white"></a>
-  <a href="https://github.com/Integrify-SDK/integrify-python"><img alt="Monorepo" src="https://img.shields.io/badge/monorepo-integrations-0F766E"></a>
+  <a href="https://github.com/integrify-sdk/integrify-python"><img alt="Monorepo" src="https://img.shields.io/badge/monorepo-integrations-0F766E"></a>
 </p>
 <!-- markdownlint-enable MD033 -->
 
@@ -53,7 +53,7 @@ Integrify API inteqrasiyalarını rahatlaşdıran Python kitabxanasıdır. Bu re
 ### Dokumentasiya
 
 - Dokumentasiya portalı: [https://integrify.mmzeynalli.dev](https://integrify.mmzeynalli.dev)
-- Kod bazası: [https://github.com/Integrify-SDK/integrify-python](https://github.com/Integrify-SDK/integrify-python)
+- Kod bazası: [https://github.com/integrify-sdk/integrify-python](https://github.com/integrify-sdk/integrify-python)
 
 ### Əsas özəlliklər
 
@@ -128,7 +128,7 @@ Integrify is a Python toolkit for API integrations. This repository is the monor
 ### Documentation
 
 - Project docs portal: [https://integrify.mmzeynalli.dev](https://integrify.mmzeynalli.dev)
-- Code repository: [https://github.com/Integrify-SDK/integrify-python](https://github.com/Integrify-SDK/integrify-python)
+- Code repository: [https://github.com/integrify-sdk/integrify-python](https://github.com/integrify-sdk/integrify-python)
 
 ### Key features
 

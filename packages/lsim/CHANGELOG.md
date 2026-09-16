@@ -28,5 +28,5 @@ on [Keep a Changelog](https://keepachangelog.com/) and this project follows
 
 - Initial release — refactored from the [old library](https://github.com/mmzeynalli/integrify) to the new style.
 
-[1.1.0]: https://github.com/Integrify-SDK/integrify-python/compare/lsim-1.0.0...lsim-1.1.0
-[1.0.0]: https://github.com/Integrify-SDK/integrify-python/releases/tag/lsim-1.0.0
+[1.1.0]: https://github.com/integrify-sdk/integrify-python/compare/lsim-1.0.0...lsim-1.1.0
+[1.0.0]: https://github.com/integrify-sdk/integrify-python/releases/tag/lsim-1.0.0

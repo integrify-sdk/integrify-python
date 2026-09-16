@@ -219,3 +219,7 @@ __marimo__/
 
 # zensical per-language build output
 docs/*/site/
+docs/site/
+
+# Private integration sources fetched by scripts/build_docs.py
+.private/
