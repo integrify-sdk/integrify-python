@@ -160,12 +160,21 @@ exact API surface the private repo exists to protect. For the same reason
 ### How private docs are published
 
 Each private repo keeps its own standalone Zensical site (`docs/<lang>/mkdocs.yml`).
-`scripts/build_docs.py` builds it separately and publishes it under
+`scripts/build_docs.py` builds its pages as a separate site and publishes it under
 `/private/<name>/` (`/en/private/<name>/` for English), which
 `netlify/edge-functions/private-docs.ts` puts behind a password page (a correct
 password sets a signed, HttpOnly cookie for 30 days; `?logout` clears it). Because it is
 a separate build, its pages, search index, sitemap and `objects.inv` never touch
 the public site; the script's leak check fails the build if they do.
+
+The private site still looks like part of this one. It is built from the public
+`docs/<lang>/mkdocs.yml` (theme, `docs/overrides/`, assets, extensions, language
+switcher) and shows the public sidebar: public pages become links back to the
+public site, and the nav entry that links to `/private/<name>/` is filled with the
+private pages. From the private repo only the pages, its `nav` and its
+mkdocstrings `paths` are used. Pages under `integrations/<name>/` there are
+published at the section root (`integrations/ecustoms/env.md` →
+`/private/ecustoms/env/`).
 
 ```
 docs/private.yml                         # site URL, languages, list of private repos (no secrets)
@@ -193,8 +202,9 @@ Each private repo triggers a rebuild through a Netlify build hook stored as its
 
 1. In the private repo: a standalone `docs/<lang>/mkdocs.yml` that builds with
    `--strict`, plus the `docs.yml` workflow.
-2. Here: an entry under `private:` in `docs/private.yml`, and a public stub page
-   that links to `/private/<name>/`.
+2. Here: an entry under `private:` in `docs/private.yml`, and a nav section in
+   `docs/<lang>/mkdocs.yml` with a link to `/private/<name>/` (plus a row in the
+   home page table).
 3. GitHub: add the repo to `PRIVATE_DOCS_TOKEN`'s repository access.
 4. Netlify: set `DOCS_AUTH_<NAME>` (Functions scope), create a build hook and save
    it as `NETLIFY_BUILD_HOOK` in the private repo.

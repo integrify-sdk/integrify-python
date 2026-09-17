@@ -9,8 +9,9 @@
     {%- set title = page.title | striptags -%}
   {%- endif -%}
   {%- if title and page.ancestors -%}
-    {%- set section = (page.ancestors | last).title | striptags -%}
-    {%- if section and (section | lower) not in (title | lower) -%}
+    {#- "E-Customs (məxfi)" -> "E-Customs" -#}
+    {%- set section = (page.ancestors | last).title | striptags | split(" (") | first -%}
+    {%- if section and (section | lower) not in (title | lower) and (title | lower) not in (section | lower) -%}
       {%- set title = title ~ " (" ~ section ~ ")" -%}
     {%- endif -%}
   {%- endif -%}

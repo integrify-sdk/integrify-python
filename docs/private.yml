@@ -15,7 +15,10 @@ languages:
 #   ref:    branch, tag or commit SHA to build (pin a tag for reproducible builds)
 #   langs:  which languages the repo has docs for (subset of `languages`)
 #   config: path of the standalone Zensical config inside that repo
-#           (optional, default: docs/{lang}/mkdocs.yml)
+#           (optional, default: docs/{lang}/mkdocs.yml); only its pages, `nav`
+#           and mkdocstrings `paths` are used, the look comes from this repo
+#   pages:  folder of that config's docs_dir published at /private/<name>/
+#           (optional, default: integrations/<name> if it exists, else the root)
 #
 # To add one: add an entry here, give PRIVATE_DOCS_TOKEN read access to the
 # repo, and set DOCS_AUTH_<NAME> (the password) in Netlify. <NAME> is the key
