@@ -14,16 +14,18 @@ Bütün sorğuların həm **sinxron**, həm də **asinxron** versiyası var və 
 
 ## İnteqrasiyalar
 
-| İnteqrasiya | Növ | Sənəd |
-| :--- | :--- | :--- |
-| EPoint | Ödəniş | [Keçid](integrations/epoint/index.md) |
-| Kapital Bank | Ödəniş | [Keçid](integrations/kapitalbank/index.md) |
-| Azericard | Ödəniş | [Keçid](integrations/azericard/index.md) |
-| LSIM | SMS | [Keçid](integrations/lsim/index.md) |
-| Posta Güvərçini | SMS | [Keçid](integrations/posta-guvercini/index.md) |
+| İnteqrasiya     | Növ                        | Sənəd                                                                  |
+| :-------------- | :------------------------- | :--------------------------------------------------------------------- |
+| EPoint          | Ödəniş                     | [Keçid](integrations/epoint/index.md)                                  |
+| Kapital Bank    | Ödəniş                     | [Keçid](integrations/kapitalbank/index.md)                             |
+| Azericard       | Ödəniş                     | [Keçid](integrations/azericard/index.md)                               |
+| LSIM            | SMS                        | [Keçid](integrations/lsim/index.md)                                    |
+| Posta Güvərçini | SMS                        | [Keçid](integrations/posta-guvercini/index.md)                         |
+| Clopos          | Restoran idarəetməsi (POS) | [Keçid (EN)](https://integrify.mmzeynalli.dev/en/integrations/clopos/) |
+| ECustoms        | Logistika (məxfi)          | -                                                                      |
 
 > Clopos (POS) inteqrasiyasının sənədi hələlik yalnız **[İngiliscə](https://integrify.mmzeynalli.dev/en/)** mövcuddur.
 
 ## Töhfə
 
-Layihə [GitHub](https://github.com/Integrify-SDK/integrify-python)-da açıq mənbədir. Töhfələr gözlənilir!
+Layihə [GitHub](https://github.com/integrify-sdk/integrify-python)-da açıq mənbədir. Töhfələr gözlənilir!

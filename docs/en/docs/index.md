@@ -13,13 +13,13 @@ Every request comes in both **sync** and **async** flavours, with full type-hint
 
 ## Integrations
 
-| Integration | Type | Docs |
-| :--- | :--- | :--- |
-| Clopos | POS | [Open](integrations/clopos/index.md) |
+| Integration | Type | Docs                                 |
+| :---------- | :--- | :----------------------------------- |
+| Clopos      | POS  | [Open](integrations/clopos/index.md) |
 
 > The Azerbaijani payment & SMS integrations (EPoint, Kapital Bank, Azericard, LSIM, Posta Güvərçini)
 > are currently documented in **[Azerbaijani](https://integrify.mmzeynalli.dev/az/)**.
 
 ## Contributing
 
-The project is open source on [GitHub](https://github.com/Integrify-SDK/integrify-python). Contributions welcome!
+The project is open source on [GitHub](https://github.com/integrify-sdk/integrify-python). Contributions welcome!

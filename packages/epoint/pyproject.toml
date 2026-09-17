@@ -38,7 +38,7 @@ dependencies = ["integrify-core>=1.2.0,<2"]
 
 [project.urls]
 Homepage = "https://integrify.mmzeynalli.dev/integrations/epoint/about"
-Repository = "https://github.com/Integrify-SDK/integrify-python/tree/main/packages/epoint"
+Repository = "https://github.com/integrify-sdk/integrify-python/tree/main/packages/epoint"
 Documentation = "https://integrify.mmzeynalli.dev/integrations/epoint/about"
 
 [tool.hatch.build.targets.sdist]

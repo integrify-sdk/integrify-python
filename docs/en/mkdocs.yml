@@ -2,10 +2,10 @@ site_name: Integrify
 site_description: Integrify is a library that simplifies third-party API integrations.
 site_url: https://integrify.mmzeynalli.dev/en/
 site_author: Miradil Zeynalli
-copyright: Copyright &copy; Integrify-SDK
+copyright: Copyright © 2026 Miradil Zeynalli. All rights reserved.
 
-repo_name: Integrify-SDK/integrify-python
-repo_url: https://github.com/Integrify-SDK/integrify-python
+repo_name: integrify-sdk/integrify-python
+repo_url: https://github.com/integrify-sdk/integrify-python
 
 docs_dir: docs
 site_dir: site
@@ -54,7 +54,7 @@ extra:
       lang: en
   social:
     - icon: fontawesome/brands/github
-      link: https://github.com/Integrify-SDK/integrify-python
+      link: https://github.com/integrify-sdk/integrify-python
 
 plugins:
   - search

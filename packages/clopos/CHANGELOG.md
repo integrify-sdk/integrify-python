@@ -38,5 +38,5 @@ on [Keep a Changelog](https://keepachangelog.com/) and this project follows
 
 - Initial integration with full API support (not production-tested).
 
-[0.1.0]: https://github.com/Integrify-SDK/integrify-python/compare/clopos-0.0.1...clopos-0.1.0
-[0.0.1]: https://github.com/Integrify-SDK/integrify-python/releases/tag/clopos-0.0.1
+[0.1.0]: https://github.com/integrify-sdk/integrify-python/compare/clopos-0.0.1...clopos-0.1.0
+[0.0.1]: https://github.com/integrify-sdk/integrify-python/releases/tag/clopos-0.0.1

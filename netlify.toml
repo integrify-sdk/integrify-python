@@ -1,15 +1,21 @@
 [build]
 base = "."
 publish = "docs/site"
+# Public az (/) + en (/en/), then every private integration from docs/private.yml
+# under /private/<name>/ — see scripts/build_docs.py.
 command = """
 pip3 install --user uv &&
 export PATH=$PATH:$HOME/.local/bin &&
 uv sync &&
 uv pip install . &&
-uv run --active --no-sync zensical build -f docs/az/mkdocs.yml --strict &&
-uv run --active --no-sync zensical build -f docs/en/mkdocs.yml --strict &&
-rm -rf docs/site &&
-mkdir -p docs/site &&
-cp -r docs/az/site/. docs/site/ &&
-cp -r docs/en/site docs/site/en
+uv run --active --no-sync python scripts/build_docs.py
 """
+
+# Production must never silently ship without the private sections: fail the
+# deploy instead if PRIVATE_DOCS_TOKEN is missing. Deploy Previews (including
+# ones from forks, which don't get the token) just skip them.
+[context.production.environment]
+PRIVATE_DOCS_REQUIRED = "1"
+
+# /private/* and /en/private/* are protected by
+# netlify/edge-functions/private-docs.ts (paths are declared in that file).

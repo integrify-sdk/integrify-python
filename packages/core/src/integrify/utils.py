@@ -3,8 +3,12 @@ from typing import Annotated, Literal, TypeVar
 
 from pydantic import BaseModel, Field
 
-_ResponseT = TypeVar('_ResponseT', bound=BaseModel | dict)
-"""Dynamic response type."""
+_ResponseT = TypeVar('_ResponseT', bound=BaseModel | dict | list)
+"""Dynamic response type.
+
+Bəzi API-lər (məs., E-Customs) kök səviyyəsində JSON array qaytarır, ona görə
+`list` də bound-a daxildir (`APIResponse[list[SomeSchema]]`).
+"""
 
 T = TypeVar('T')
 

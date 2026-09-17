@@ -4,7 +4,7 @@ build-backend = "hatchling.build"
 
 [project]
 name = "integrify-core"
-version = "1.2.0"
+version = "1.2.1"
 description = "Integrify API inteqrasiyalarını rahatlaşdıran bünovrə (core) kitabxanadır."
 authors = [{ name = "mmzeynalli", email = "miradil.zeynalli@gmail.com" }]
 requires-python = ">=3.10"
@@ -38,7 +38,7 @@ dependencies = ["pydantic>=2.11.10,<3", "httpx>=0.27.2,<1"]
 
 [project.urls]
 Homepage = "https://integrify.mmzeynalli.dev/"
-Repository = "https://github.com/Integrify-SDK/integrify-python/tree/main/packages/core"
+Repository = "https://github.com/integrify-sdk/integrify-python/tree/main/packages/core"
 Documentation = "https://integrify.mmzeynalli.dev/"
 
 [tool.hatch.build.targets.sdist]

@@ -99,11 +99,11 @@ Import paths are unchanged (`integrify.epoint`, `integrify.kapitalbank`, …).
 - EPoint integration
 - EPoint documentation
 
-[3.0.0]: https://github.com/Integrify-SDK/integrify-python/compare/v2.2.2...integrify-3.0.0
-[2.2.0]: https://github.com/Integrify-SDK/integrify-python/compare/v2.1.1...v2.2.0
-[2.1.1]: https://github.com/Integrify-SDK/integrify-python/compare/v2.1.0...v2.1.1
-[2.1.0]: https://github.com/Integrify-SDK/integrify-python/compare/v2.0.1...v2.1.0
-[2.0.1]: https://github.com/Integrify-SDK/integrify-python/compare/v1.0.3...v2.0.1
-[1.0.3]: https://github.com/Integrify-SDK/integrify-python/compare/v1.0.1...v1.0.3
-[1.0.1]: https://github.com/Integrify-SDK/integrify-python/compare/v1.0.0...v1.0.1
-[1.0.0]: https://github.com/Integrify-SDK/integrify-python/releases/tag/v1.0.0
+[3.0.0]: https://github.com/integrify-sdk/integrify-python/compare/v2.2.2...integrify-3.0.0
+[2.2.0]: https://github.com/integrify-sdk/integrify-python/compare/v2.1.1...v2.2.0
+[2.1.1]: https://github.com/integrify-sdk/integrify-python/compare/v2.1.0...v2.1.1
+[2.1.0]: https://github.com/integrify-sdk/integrify-python/compare/v2.0.1...v2.1.0
+[2.0.1]: https://github.com/integrify-sdk/integrify-python/compare/v1.0.3...v2.0.1
+[1.0.3]: https://github.com/integrify-sdk/integrify-python/compare/v1.0.1...v1.0.3
+[1.0.1]: https://github.com/integrify-sdk/integrify-python/compare/v1.0.0...v1.0.1
+[1.0.0]: https://github.com/integrify-sdk/integrify-python/releases/tag/v1.0.0

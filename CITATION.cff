@@ -11,7 +11,7 @@ authors:
   - given-names: Miradil
     family-names: Zeynalli
     email: miradil.zeynalli@gmail.com
-repository-code: 'https://github.com/Integrify-SDK/integrify-python'
+repository-code: 'https://github.com/integrify-sdk/integrify-python'
 url: 'https://integrify.mmzeynalli.dev/'
 abstract: >-
   Integrify is a request library that eases API integrations.

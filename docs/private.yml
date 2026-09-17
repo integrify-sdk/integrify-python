@@ -1,0 +1,27 @@
+site_url: https://integrify.mmzeynalli.dev/
+
+# Public languages, in build order. The value is the URL prefix the language
+# is published under ("" = site root). Each one is built from
+# docs/<lang>/mkdocs.yml.
+languages:
+  az: ''
+  en: en
+
+# Private integrations. Each one is built as its own small site from its own
+# repo and published under <lang prefix>/private/<name>/, which the edge
+# function puts behind a password page.
+#
+#   repo:   GitHub "owner/name" of the private repo
+#   ref:    branch, tag or commit SHA to build (pin a tag for reproducible builds)
+#   langs:  which languages the repo has docs for (subset of `languages`)
+#   config: path of the standalone Zensical config inside that repo
+#           (optional, default: docs/{lang}/mkdocs.yml)
+#
+# To add one: add an entry here, give PRIVATE_DOCS_TOKEN read access to the
+# repo, and set DOCS_AUTH_<NAME> (the password) in Netlify. <NAME> is the key
+# below, upper-cased, with "-" replaced by "_".
+private:
+  ecustoms:
+    repo: integrify-sdk/integrify-ecustoms-python
+    ref: main
+    langs: [az]

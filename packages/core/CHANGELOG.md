@@ -4,6 +4,14 @@ All notable changes to `integrify-core` are documented here. The format is based
 on [Keep a Changelog](https://keepachangelog.com/) and this project follows
 [Semantic Versioning](https://semver.org/).
 
+## [1.2.1] - 2026-09-17
+
+### Changed
+
+- Widened the `_ResponseT` bound to `BaseModel | dict | list`, so integrations whose
+  endpoints return a JSON array at the root can type their responses as
+  `APIResponse[list[SomeSchema]]`.
+
 ## [1.2.0] - 2026-08-11
 
 ### Added
@@ -54,8 +62,8 @@ on [Keep a Changelog](https://keepachangelog.com/) and this project follows
 
 - Initial release — refactored from the [old library](https://github.com/mmzeynalli/integrify) to the new style.
 
-[1.2.0]: https://github.com/Integrify-SDK/integrify-python/compare/core-1.1.1...core-1.2.0
-[1.1.1]: https://github.com/Integrify-SDK/integrify-python/compare/core-1.1.0...core-1.1.1
-[1.1.0]: https://github.com/Integrify-SDK/integrify-python/compare/core-1.0.5...core-1.1.0
-[1.0.5]: https://github.com/Integrify-SDK/integrify-python/compare/core-1.0.3...core-1.0.5
-[1.0.3]: https://github.com/Integrify-SDK/integrify-python/releases/tag/core-1.0.3
+[1.2.0]: https://github.com/integrify-sdk/integrify-python/compare/core-1.1.1...core-1.2.0
+[1.1.1]: https://github.com/integrify-sdk/integrify-python/compare/core-1.1.0...core-1.1.1
+[1.1.0]: https://github.com/integrify-sdk/integrify-python/compare/core-1.0.5...core-1.1.0
+[1.0.5]: https://github.com/integrify-sdk/integrify-python/compare/core-1.0.3...core-1.0.5
+[1.0.3]: https://github.com/integrify-sdk/integrify-python/releases/tag/core-1.0.3

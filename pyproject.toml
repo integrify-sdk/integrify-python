@@ -37,7 +37,7 @@ dependencies = ["integrify-core"]
 
 [project.urls]
 Homepage = "https://integrify.mmzeynalli.dev"
-Repository = "https://github.com/Integrify-SDK/integrify-python"
+Repository = "https://github.com/integrify-sdk/integrify-python"
 Documentation = "https://integrify.mmzeynalli.dev"
 
 [project.optional-dependencies]
