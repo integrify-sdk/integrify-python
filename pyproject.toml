@@ -166,6 +166,7 @@ fail_under = 95
 
 [tool.coverage.run]
 source = ["packages"]
+omit = ["packages/*/tests/*"]
 branch = true
 relative_files = true
 context = "${CONTEXT}"
