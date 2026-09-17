@@ -61,7 +61,7 @@ all = [
 requires = ["hatchling"]
 build-backend = "hatchling.build"
 
-# The umbrella distribution ships no importable code of its own — it only
+# The umbrella distribution ships no importable code of its own; it only
 # aggregates the member distributions through extras. The `integrify` import
 # namespace itself is a PEP 420 namespace provided by `integrify-core` and by
 # each integration package.
@@ -139,6 +139,16 @@ ignore-init-module-imports = true
 [tool.ruff.format]
 quote-style = "single"
 
+[tool.ruff.lint.per-file-ignores]
+# CLI-style helper scripts may print.
+"scripts/**" = ["T201"]
+# In-function imports and literal expected values are idiomatic in tests.
+"**/tests/**" = ["PLC0415", "PLR2004"]
+# APIClient.__init__ takes many config arguments.
+"packages/core/src/integrify/api.py" = ["PLR0913", "PLR0917"]
+# Long client __init__ registering every endpoint.
+"packages/clopos/src/integrify/clopos/client.py" = ["PLR0915"]
+
 [tool.pytest.ini_options]
 testpaths = ["packages"]
 filterwarnings = ["ignore::UserWarning"]
@@ -164,23 +174,7 @@ context = "${CONTEXT}"
 exclude_dirs = ["tests"]
 skips = ["B101"]
 
-[tool.ruff.lint.per-file-ignores]
-"scripts/**" = ["T201"]                 # CLI-style helper scripts may print
-"**/tests/**" = ["PLC0415", "PLR2004"]  # in-function imports & literal expected values are idiomatic in tests
-"**/handlers.py" = ["PLR2004"]          # HTTP status-code comparisons (200/404/500)
-"packages/core/src/integrify/api.py" = ["PLR0913", "PLR0917"]   # APIClient.__init__ config args
-"packages/clopos/src/integrify/clopos/client.py" = ["PLR0915"]  # long client __init__
 
-# --------------------------------------------------------------------------- #
-#  ty (static type checker) — https://docs.astral.sh/ty/                      #
-#                                                                             #
-#  ty 0.0.71 is pre-1.0 and has known gaps around pydantic Field defaults,    #
-#  generic-variance narrowing, sentinel Literal types and **kwargs splat.     #
-#  The rules below silence the false positives those produce on this          #
-#  pydantic-heavy codebase; every other ty rule stays on. Tests deliberately  #
-#  pass invalid values (os.getenv() -> str | None, None) to exercise error    #
-#  paths, so they are not type-checked.                                       #
-# --------------------------------------------------------------------------- #
 [tool.ty.environment]
 python-version = "3.10"
 
@@ -188,12 +182,11 @@ python-version = "3.10"
 exclude = ["**/tests/**"]
 
 [tool.ty.rules]
-# Optional env-vars (str | None) are used as parameter/Field defaults, validated
-# at runtime via requires_env(). The default-vs-annotation mismatch is intended.
+# Optional env vars (str | None) are used as parameter/Field defaults; env.py warns when one is missing. The default-vs-annotation mismatch is intended.
 invalid-parameter-default = "ignore"
 invalid-assignment = "ignore"
 # Handlers narrow the generic base return (APIResponse[Unknown] | Response) to a
-# concrete schema — a generic-variance gap in ty, not a real defect.
+# concrete schema: a generic-variance gap in ty, not a real defect.
 invalid-return-type = "ignore"
 
 [[tool.ty.overrides]]

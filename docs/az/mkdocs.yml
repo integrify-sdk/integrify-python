@@ -163,3 +163,5 @@ nav:
           - integrations/posta-guvercini/api-reference/client.md
           - Schemas:
               - Response: integrations/posta-guvercini/api-reference/response.md
+  # Private section (separate build, password-protected): see docs/private.yml
+  - E-Customs (məxfi): /private/ecustoms/
