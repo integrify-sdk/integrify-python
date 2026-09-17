@@ -1,0 +1,6 @@
+User-agent: *
+Disallow: /private/
+Disallow: /en/private/
+
+Sitemap: https://integrify.mmzeynalli.dev/sitemap.xml
+Sitemap: https://integrify.mmzeynalli.dev/en/sitemap.xml

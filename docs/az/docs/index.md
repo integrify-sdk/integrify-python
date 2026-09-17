@@ -1,3 +1,7 @@
+---
+title: Azərbaycan API inteqrasiyaları üçün Python kitabxanası
+---
+
 # Integrify
 
 **Integrify** — üçüncü tərəf API inteqrasiyalarını rahatlaşdıran Python kitabxanasıdır.

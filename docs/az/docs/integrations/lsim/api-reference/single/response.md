@@ -1,3 +1,7 @@
+---
+title: Single SMS response
+---
+
 # Response Schemas
 
 ::: integrify.lsim.single.schemas.response.BaseGetResponseSchema

@@ -12,6 +12,7 @@ site_dir: site
 
 theme:
   name: material
+  custom_dir: ../overrides
   language: en
   logo: assets/logo.svg
   favicon: assets/favicon.ico
@@ -47,7 +48,7 @@ theme:
 extra:
   alternate:
     - name: Azərbaycanca
-      link: /az/
+      link: /
       lang: az
     - name: English
       link: /en/
@@ -124,4 +125,5 @@ nav:
               - Enums: integrations/clopos/api-reference/enums.md
           - integrations/clopos/api-reference/helper-functions.md
   # Private section (separate build, password-protected): see docs/private.yml
-  - E-Customs (private, AZ): /private/ecustoms/
+  - E-Customs (private):
+      - E-Customs (AZ): /private/ecustoms/

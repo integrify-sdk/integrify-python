@@ -1,3 +1,7 @@
+---
+title: Python library for Azerbaijani API integrations
+---
+
 # Integrify
 
 **Integrify** is a Python library that simplifies third-party API integrations.
@@ -19,7 +23,7 @@ Every request comes in both **sync** and **async** flavours, with full type-hint
 | E-Customs   | Logistics (private) | [Open :material-lock:](/private/ecustoms/){ title="Password required" } (AZ) |
 
 > The Azerbaijani payment & SMS integrations (EPoint, Kapital Bank, Azericard, LSIM, Posta Güvərçini)
-> are currently documented in **[Azerbaijani](https://integrify.mmzeynalli.dev/az/)**.
+> are currently documented in **[Azerbaijani](https://integrify.mmzeynalli.dev/)**.
 
 ## Contributing
 

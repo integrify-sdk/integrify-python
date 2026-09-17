@@ -1,4 +1,4 @@
-# Posta Guvercini
+# Posta Güvərçini
 
 ???+ warning
     Bu sorğulardan istifadə edə bilmək üçün, düzgün "environment variable"-ları quraşdırmalısınız. Daha ətraflı [burdan](./env.md) oxuya bilərsiniz.

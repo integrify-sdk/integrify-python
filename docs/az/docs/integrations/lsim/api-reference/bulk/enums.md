@@ -1,3 +1,7 @@
+---
+title: Bulk SMS enums
+---
+
 # Enums
 
 ::: integrify.lsim.bulk.schemas.enums.Code

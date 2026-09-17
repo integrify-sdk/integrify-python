@@ -1,6 +1,6 @@
 site_name: Integrify
 site_description: Integrify API inteqrasiyalarını rahatlaşdıran sorğular kitabxanasıdır.
-site_url: https://integrify.mmzeynalli.dev/az/
+site_url: https://integrify.mmzeynalli.dev/
 site_author: Miradil Zeynalli
 copyright: Copyright © 2026 Miradil Zeynalli. Bütün hüquqlar qorunur.
 
@@ -12,6 +12,7 @@ site_dir: site
 
 theme:
   name: material
+  custom_dir: ../overrides
   language: az
   logo: assets/logo.svg
   favicon: assets/favicon.ico
@@ -47,7 +48,7 @@ theme:
 extra:
   alternate:
     - name: Azərbaycanca
-      link: /az/
+      link: /
       lang: az
     - name: English
       link: /en/
@@ -164,4 +165,5 @@ nav:
           - Schemas:
               - Response: integrations/posta-guvercini/api-reference/response.md
   # Private section (separate build, password-protected): see docs/private.yml
-  - E-Customs (məxfi): /private/ecustoms/
+  - E-Customs (məxfi):
+      - E-Customs: /private/ecustoms/

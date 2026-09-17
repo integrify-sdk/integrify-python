@@ -1,3 +1,7 @@
+---
+title: Bulk SMS response
+---
+
 # Response Schemas
 
 ::: integrify.lsim.bulk.schemas.response.SendBulkSMSResponseSchema
