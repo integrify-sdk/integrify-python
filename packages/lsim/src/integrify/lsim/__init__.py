@@ -1,7 +1,7 @@
 """
 Dokumentasiya:
 
-EN: https://mmzeynalli.notion.site/LSIM-1974f14f727e8029a3f5f9e4e556afe3?pvs=74
+EN: https://integrify.mmzeynalli.dev/integrations/lsim/official/api/
 """
 
 from .bulk.client import LSIMBulkSMSAsyncClient, LSIMBulkSMSClient, LSIMBulkSMSClientClass

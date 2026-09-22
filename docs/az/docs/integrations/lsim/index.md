@@ -5,7 +5,35 @@
 
 ## Rəsmi Dokumentasiya (v2024.11.22) { #official-documentation }
 
-[İngliscə](https://mmzeynalli.notion.site/LSIM-1974f14f727e8029a3f5f9e4e556afe3?pvs=74)
+[İngliscə](./official/api.md)
+
+## Sürətli başlanğıc { #quickstart }
+
+Tək və toplu SMS göndərmək, balansı yoxlamaq:
+
+```python
+from integrify.lsim import LSIMBulkSMSClient, LSIMSingleSMSClient
+
+# Tək SMS (LSIM_LOGIN, LSIM_PASSWORD, LSIM_SENDER_NAME mühit dəyişənlərindən götürülür)
+resp = LSIMSingleSMSClient.send_sms_post(msisdn='994501234567', text='Salam!')
+
+if resp.ok:
+    print(resp.body.obj)  # tranzaksiya ID-si (hesabat üçün lazımdır)
+
+# Toplu SMS: hamıya eyni mətn
+bulk = LSIMBulkSMSClient.bulk_send_one_message(
+    controlid=1,  # hər göndəriş üçün unikal olmalıdır
+    msisdns=['994501234567', '994551234567'],
+    bulkmessage='Salam!',
+)
+print(bulk.body.task_id)
+
+# Balans
+balance = LSIMSingleSMSClient.check_balance()
+print(balance.body.obj)
+```
+
+Asinxron istifadə üçün `LSIMSingleSMSAsyncClient`/`LSIMBulkSMSAsyncClient` import edib, eyni metodları `await` ilə çağırın.
 
 ## Sorğular listi { #list-of-requests }
 

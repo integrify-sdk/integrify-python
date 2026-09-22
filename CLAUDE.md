@@ -48,11 +48,10 @@ docs/az/docs/integrations/<name>/
 └── api-reference/               # mkdocstrings stubs: client.md, request.md, response.md, enums.md
 ```
 
-Then wire it up in three places:
+Then wire it up in two places:
 
 1. `pyproject.toml` — `[project.optional-dependencies]` extra, the `all` list, and `[tool.uv.sources]`.
 2. `docs/az/mkdocs.yml` — the mkdocstrings `paths` list **and** the `nav` tree.
-3. `docs/az/partial.yml` — the matching nav fragment.
 
 (English pages, where they exist, mirror this under `docs/en/`.)
 

@@ -20,7 +20,7 @@
 
 ## Rəsmi Dokumentasiya (v2024.11.22)
 
-[İngliscə](https://mmzeynalli.notion.site/LSIM-1974f14f727e8029a3f5f9e4e556afe3?pvs=74)
+[İngliscə](https://integrify.mmzeynalli.dev/integrations/lsim/official/api/)
 
 ## Əsas özəlliklər
 

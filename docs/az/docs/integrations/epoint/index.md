@@ -11,6 +11,34 @@
 
 [Rusca](https://epointbucket.s3.eu-central-1.amazonaws.com/files/instructions/API%20Epoint%20ru.pdf)
 
+## Sürətli başlanğıc { #quickstart }
+
+Ödəniş yaratmaq, müştərini ödəniş səhifəsinə yönləndirmək və statusu yoxlamaq:
+
+```python
+from integrify.epoint import EPointRequest
+
+# 1. Ödəniş yaradın
+resp = EPointRequest.pay(
+    amount=10,
+    currency='AZN',
+    order_id='order-1',
+    description='Sifariş #1',
+)
+
+if resp.ok:
+    # 2. Müştərini EPoint ödəniş səhifəsinə yönləndirin
+    print(resp.body.redirect_url)
+
+    # 3. Nəticə callback-ə gəlir; istənilən vaxt statusu özünüz də yoxlaya bilərsiniz
+    status = EPointRequest.get_transaction_status(transaction_id=resp.body.transaction)
+    print(status.body.status)  # new, success, returned, error, server_error
+else:
+    print(resp.body.message)
+```
+
+Asinxron istifadə üçün `EPointAsyncRequest` import edib, eyni metodları `await` ilə çağırın.
+
 ## Sorğular listi { #list-of-requests }
 
 | Sorğu metodu                                                                                       | Məqsəd                                                               |                EPoint API                 |  Callback-ə sorğu atılır  |

@@ -7,6 +7,28 @@
 
 [İngliscə](https://www.poctgoyercini.com/api_json/swagger/ui/index#/)
 
+Markdown versiyası (bu saytda): [Posta Güvərçini API](./official/api.md)
+
+## Sürətli başlanğıc { #quickstart }
+
+SMS göndərmək və statusunu yoxlamaq:
+
+```python
+from integrify.postaguvercini import PostaGuverciniClient
+
+resp = PostaGuverciniClient.send_single_sms(message='Salam!', receivers=['994501234567'])
+
+if resp.ok:
+    message_id = resp.body.result[0].message_id
+
+    status = PostaGuverciniClient.get_status(message_ids=[message_id])
+    print(status.body.result[0].sms_status_description)
+else:
+    print(resp.body.status_description)
+```
+
+Asinxron istifadə üçün `PostaGuverciniAsyncClient` import edib, eyni metodları `await` ilə çağırın.
+
 ## Sorğular listi { #list-of-requests }
 
 | Sorğu metodu                                                                                       | Məqsəd                            |        PostaGuvercini API        |
