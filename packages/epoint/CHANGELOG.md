@@ -4,6 +4,14 @@ All notable changes to `integrify-epoint` are documented here. The format is bas
 on [Keep a Changelog](https://keepachangelog.com/) and this project follows
 [Semantic Versioning](https://semver.org/).
 
+## [1.3.0] - 2026-09-22
+
+### Added
+
+- Apple Pay & Google Pay widget: `create_widget` (`/api/1/token/widget`), returning a `widget_url` to embed in an iframe/webview.
+- Apple Pay & Google Pay via EPoint's JS SDK (token payment API): `create_token_payment`, `apple_pay_session`, `apple_pay`, `google_pay`.
+- `WidgetResponseSchema`, `TokenPaymentResponseSchema` and `TokenPayResponseSchema` response schemas.
+
 ## [1.2.0] - 2026-08-11
 
 ### Added
@@ -34,6 +42,7 @@ on [Keep a Changelog](https://keepachangelog.com/) and this project follows
 
 - Initial release — refactored from the [old library](https://github.com/mmzeynalli/integrify) to the new style.
 
+[1.3.0]: https://github.com/integrify-sdk/integrify-python/compare/epoint-1.2.0...epoint-1.3.0
 [1.2.0]: https://github.com/integrify-sdk/integrify-python/compare/epoint-1.1.0...epoint-1.2.0
 [1.1.0]: https://github.com/integrify-sdk/integrify-python/compare/epoint-1.0.0...epoint-1.1.0
 [1.0.0]: https://github.com/integrify-sdk/integrify-python/releases/tag/epoint-1.0.0

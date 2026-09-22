@@ -9,6 +9,9 @@ EPoint:
       - Response: "integrations/epoint/api-reference/response.md"
       - Callback: "integrations/epoint/api-reference/callback.md"
     - "integrations/epoint/api-reference/helper-functions.md"
+  - Rəsmi Dokumentasiya:
+    - "API (v1.0.3)": "integrations/epoint/official/api.md"
+    - "Apple Pay & Google Pay (JS SDK)": "integrations/epoint/official/apple-google-pay.md"
 
 Kapital Bank:
   - "integrations/kapitalbank/index.md"

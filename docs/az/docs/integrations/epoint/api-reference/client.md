@@ -39,3 +39,8 @@
         - split_pay
         - split_pay_with_saved_card
         - split_pay_and_save_card
+        - create_widget
+        - create_token_payment
+        - apple_pay_session
+        - apple_pay
+        - google_pay

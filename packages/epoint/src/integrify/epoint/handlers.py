@@ -7,7 +7,12 @@ from integrify.epoint import env
 from integrify.epoint.helpers import generate_signature
 from integrify.epoint.schemas.enums import TransactionStatus, TransactionStatusExtended
 from integrify.epoint.schemas.request import (
+    ApplePayRequestSchema,
+    ApplePaySessionRequestSchema,
+    CreateTokenPaymentRequestSchema,
+    CreateWidgetRequestSchema,
     GetTransactionStatusRequestSchema,
+    GooglePayRequestSchema,
     PayAndSaveCardRequestSchema,
     PaymentRequestSchema,
     PayoutRequestSchema,
@@ -24,7 +29,10 @@ from integrify.epoint.schemas.response import (
     RedirectUrlResponseSchema,
     RedirectUrlWithCardIdResponseSchema,
     SplitPayWithSavedCardResponseSchema,
+    TokenPaymentResponseSchema,
+    TokenPayResponseSchema,
     TransactionStatusResponseSchema,
+    WidgetResponseSchema,
 )
 from integrify.schemas import APIResponse, _ResponseT
 
@@ -106,3 +114,62 @@ class SplitPayWithSavedCardPayloadHandler(BasePayloadHandler):
 class SplitPayAndSaveCardPayloadHandler(BasePayloadHandler):
     req_model = SplitPayAndSaveCardRequestSchema
     resp_model = RedirectUrlWithCardIdResponseSchema
+
+
+##############################################################################
+# Apple Pay & Google Pay
+_ERROR_STATUSES = {
+    TransactionStatus.ERROR.value,
+    TransactionStatus.SERVER_ERROR.value,
+    TransactionStatus.FAILED.value,
+}
+
+
+class BaseTokenPayloadHandler(BasePayloadHandler):
+    """Apple/Google Pay sorğuları üçün baza handler: data-ya yalnız `public_key` əlavə olunur"""
+
+    def pre_handle_payload(self, *args, **kwds):
+        return {'public_key': env.EPOINT_PUBLIC_KEY}
+
+
+class CreateWidgetPayloadHandler(BaseTokenPayloadHandler):
+    req_model = CreateWidgetRequestSchema
+    resp_model = WidgetResponseSchema
+
+
+class CreateTokenPaymentPayloadHandler(BasePayloadHandler):
+    req_model = CreateTokenPaymentRequestSchema
+    resp_model = TokenPaymentResponseSchema
+
+    def handle_response(self, resp: httpx.Response) -> APIResponse[_ResponseT]:
+        # Uğurlu cavabda `status` field-i yoxdur, ödəniş obyekti birbaşa qayıdır
+        api_resp: APIResponse[TokenPaymentResponseSchema] = APIPayloadHandler.handle_response(
+            self, resp
+        )
+        api_resp.ok = (
+            api_resp.ok
+            and api_resp.body.id is not None
+            and api_resp.body.status not in _ERROR_STATUSES
+        )
+        return api_resp
+
+
+class ApplePaySessionPayloadHandler(BaseTokenPayloadHandler):
+    req_model = ApplePaySessionRequestSchema
+    resp_model = dict
+
+    def handle_response(self, resp: httpx.Response) -> APIResponse[_ResponseT]:
+        # Apple merchant session obyekti olduğu kimi qaytarılır (SDK-ya ötürmək üçün)
+        api_resp: APIResponse[dict] = APIPayloadHandler.handle_response(self, resp)
+        api_resp.ok = api_resp.ok and api_resp.body.get('status') not in _ERROR_STATUSES
+        return api_resp
+
+
+class ApplePayPayloadHandler(BaseTokenPayloadHandler):
+    req_model = ApplePayRequestSchema
+    resp_model = TokenPayResponseSchema
+
+
+class GooglePayPayloadHandler(BaseTokenPayloadHandler):
+    req_model = GooglePayRequestSchema
+    resp_model = TokenPayResponseSchema

@@ -1,4 +1,6 @@
+from datetime import datetime
 from decimal import Decimal
+from typing import Any
 
 from integrify.epoint.schemas.enums import Code, TransactionStatus, TransactionStatusExtended
 from pydantic import BaseModel, field_validator
@@ -96,3 +98,87 @@ class TransactionStatusResponseSchema(BaseWithCodeSchema):
 class SplitPayWithSavedCardResponseSchema(BaseResponseSchema):
     split_amount: Decimal | None = None
     """İkinci istifadəçi üçün ödəniş məbləği."""
+
+
+#################################################################
+# Apple Pay & Google Pay
+class WidgetResponseSchema(BaseModel):
+    """`/api/1/token/widget` sorğusunun cavabı"""
+
+    status: str
+    """Əməliyyatın nəticəsi: `success` və ya `error`"""
+
+    message: str | None = None
+    """Xəta baş verdikdə, xəta mesajı"""
+
+    widget_url: str | None = None
+    """Apple Pay/Google Pay düymələrinin olduğu widget-in URL-i.
+    iframe və ya webview daxilində açılmalıdır."""
+
+
+class TokenPaymentResponseSchema(BaseModel):
+    """`/api/1/token/payment` sorğusunun cavabı: EPoint-də yaradılmış token ödənişi.
+    Bu obyekt frontend-də `initTokenPay`-ə `payment` parametri kimi ötürülür."""
+
+    # if error
+    status: str | None = None
+    """Xəta baş verdikdə, əməliyyatın statusu"""
+
+    message: str | None = None
+    """Xəta baş verdikdə, xəta mesajı"""
+
+    # if success
+    id: int | None = None
+    """Token ödənişinin EPoint-dəki IDsi. Apple/Google Pay sorğularında istifadə olunur."""
+
+    transaction: str | None = None
+    """EPoint xidmətinin əməliyyat IDsi"""
+
+    rrn: str | None = None
+    """Retrieval Reference Number - unikal əməliyyat identifikatoru"""
+
+    short_link: str | None = None
+    """Ödənişin qısa linki"""
+
+    bank_order_id: str | None = None
+    """Bank tərəfindəki sifariş IDsi"""
+
+    total: Decimal | None = None
+    """Ödənişin yekun məbləği"""
+
+    card_name: str | None = None
+    """Ödəniş səhifəsində göstərilən istifadəçi adı"""
+
+    card_mask: str | None = None
+    """123456******1234 formatında əks edilən kart maskası"""
+
+    description: str | None = None
+    """Ödənişin təsviri"""
+
+    merchant_order_id: str | None = None
+    """Tətbiqinizdə unikal əməliyyat ID (sorğuda göndərdiyiniz `order_id`)"""
+
+    other_attr: Any = None
+    """Əlavə göndərdiyiniz seçimlər"""
+
+    created_at: datetime | None = None
+    """Ödənişin yaradılma tarixi"""
+
+    updated_at: datetime | None = None
+    """Ödənişin son yenilənmə tarixi"""
+
+
+class TokenPayResponseSchema(BaseModel):
+    """Apple Pay/Google Pay ödənişinin tamamlanması sorğusunun cavabı"""
+
+    status: str
+    """Əməliyyatın nəticəsi. Uğurlu olduqda: `success`"""
+
+    message: str | None = None
+    """Ödənişin icra statusu haqqında mesaj"""
+
+    result: Any = None
+    """Ödəniş provayderindən (PSP) gələn cavab"""
+
+    redirect_url: str | None = None
+    """Yönləndirmə URL-i (məs., 3DS üçün). Hər zaman gəlmir."""

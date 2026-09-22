@@ -5,7 +5,12 @@ from typing import SupportsFloat as Numeric
 from integrify.api import APIClient, _Async, _Mode, _Sync
 from integrify.epoint import env
 from integrify.epoint.handlers import (
+    ApplePayPayloadHandler,
+    ApplePaySessionPayloadHandler,
+    CreateTokenPaymentPayloadHandler,
+    CreateWidgetPayloadHandler,
     GetTransactionStatusPayloadHandler,
+    GooglePayPayloadHandler,
     PayAndSaveCardPayloadHandler,
     PaymentPayloadHandler,
     PayoutPayloadHandler,
@@ -22,7 +27,10 @@ from integrify.epoint.schemas.response import (
     RedirectUrlResponseSchema,
     RedirectUrlWithCardIdResponseSchema,
     SplitPayWithSavedCardResponseSchema,
+    TokenPaymentResponseSchema,
+    TokenPayResponseSchema,
     TransactionStatusResponseSchema,
+    WidgetResponseSchema,
 )
 from integrify.schemas import APIResponse
 from integrify.utils import UNSET, Unset
@@ -72,6 +80,22 @@ class EPointClientClass(APIClient, Generic[_Mode]):
 
         self.add_url('split_pay_and_save_card', env.API.SPLIT_PAY_AND_SAVE_CARD, verb='POST')
         self.add_handler('split_pay_and_save_card', SplitPayAndSaveCardPayloadHandler)
+
+        # Apple Pay & Google Pay
+        self.add_url('create_widget', env.API.CREATE_WIDGET, verb='POST')
+        self.add_handler('create_widget', CreateWidgetPayloadHandler)
+
+        self.add_url('create_token_payment', env.API.CREATE_TOKEN_PAYMENT, verb='POST')
+        self.add_handler('create_token_payment', CreateTokenPaymentPayloadHandler)
+
+        self.add_url('apple_pay_session', env.API.APPLE_PAY_SESSION, verb='POST')
+        self.add_handler('apple_pay_session', ApplePaySessionPayloadHandler)
+
+        self.add_url('apple_pay', env.API.APPLE_PAY, verb='POST')
+        self.add_handler('apple_pay', ApplePayPayloadHandler)
+
+        self.add_url('google_pay', env.API.GOOGLE_PAY, verb='POST')
+        self.add_handler('google_pay', GooglePayPayloadHandler)
 
     if TYPE_CHECKING:
         # pylint: disable=missing-function-docstring,unused-argument
@@ -496,6 +520,227 @@ class EPointClientClass(APIClient, Generic[_Mode]):
             description: Unset[str] = UNSET,
         ) -> Coroutine[Any, Any, APIResponse[RedirectUrlWithCardIdResponseSchema]]: ...
         def split_pay_and_save_card(self, *args: Any, **kwds: Any) -> Any: ...
+
+        @overload
+        def create_widget(
+            self: 'EPointClientClass[_Sync]',
+            amount: Numeric,
+            order_id: str,
+            description: str,
+        ) -> APIResponse[WidgetResponseSchema]:
+            """Apple Pay və Google Pay widget-i yaratma sorğusu
+
+            **Endpoint:** */api/1/token/widget*
+
+            Example:
+                ```python
+                from integrify.epoint import EPointRequest
+
+                EPointRequest.create_widget(amount=2.5, order_id='12345678', description='Ödəniş')
+                ```
+
+            **Cavab formatı**: [`WidgetResponseSchema`][integrify.epoint.schemas.response.WidgetResponseSchema]
+
+            Apple Pay/Google Pay-i qoşmağın ən sadə yolu. Cavabda gələn `widget_url`-i saytınızda
+            iframe, mobil tətbiqdə isə webview daxilində açın: düymələr və ödəniş axını EPoint
+            tərəfindən idarə olunur, əlavə backend endpoint-lərinə ehtiyac yoxdur. Ödəniş bitdikdən
+            sonra widget səhifəyə `message` event-i göndərir (`event.data`:
+            `{status: 'success', payment: {...}}`). Ödənişin nəticəsini backend-də
+            [`get_transaction_status`][integrify.epoint.client.EPointClientClass.get_transaction_status]
+            ilə yoxlamaq tövsiyə olunur.
+
+            Düymələri öz dizaynınızla göstərmək istəyirsinizsə,
+            [`create_token_payment`][integrify.epoint.client.EPointClientClass.create_token_payment]
+            ilə başlayan SDK axınından istifadə edin.
+
+            Args:
+                amount: Ödəniş miqdarı. Numerik dəyər.
+                order_id: Unikal ID. Maksimal uzunluq: 255 simvol.
+                description: Ödənişin təsviri. Maksimal uzunluq: 1000 simvol.
+            """  # noqa: E501
+
+        @overload
+        def create_widget(
+            self: 'EPointClientClass[_Async]',
+            amount: Numeric,
+            order_id: str,
+            description: str,
+        ) -> Coroutine[Any, Any, APIResponse[WidgetResponseSchema]]: ...
+        def create_widget(self, *args: Any, **kwds: Any) -> Any: ...
+
+        @overload
+        def create_token_payment(
+            self: 'EPointClientClass[_Sync]',
+            amount: Numeric,
+            currency: str,
+            order_id: str,
+            description: Unset[str] = UNSET,
+        ) -> APIResponse[TokenPaymentResponseSchema]:
+            """Apple Pay/Google Pay üçün token ödənişi yaratma sorğusu
+
+            **Endpoint:** */api/1/token/payment*
+
+            Example:
+                ```python
+                from integrify.epoint import EPointRequest
+
+                EPointRequest.create_token_payment(amount=2.5, currency='AZN', order_id='12345678', description='Ödəniş')
+                ```
+
+            **Cavab formatı**: [`TokenPaymentResponseSchema`][integrify.epoint.schemas.response.TokenPaymentResponseSchema]
+
+            Apple Pay/Google Pay düymələrini işə salmazdan əvvəl, EPoint-də token ödənişi
+            yaradılmalıdır: bütün sonrakı token əməliyyatları bu ödənişə istinad edir. Cavabda gələn
+            ödəniş obyektini (ən azı `id` və məbləği) frontend-də `initTokenPay`-ə `payment`
+            parametri kimi ötürün. Sonra SDK sizin backend-inizdəki
+            [`apple_pay_session`][integrify.epoint.client.EPointClientClass.apple_pay_session],
+            [`apple_pay`][integrify.epoint.client.EPointClientClass.apple_pay] və
+            [`google_pay`][integrify.epoint.client.EPointClientClass.google_pay] sorğularını
+            çağıran endpoint-lərə müraciət edəcək.
+
+            Args:
+                amount: Ödəniş miqdarı. Numerik dəyər.
+                currency: Ödəniş məzənnəsi. Mümkün dəyərlər: AZN
+                order_id: Unikal ID. Maksimal uzunluq: 255 simvol.
+                description: Ödənişin təsviri. Məcburi arqument deyil.
+            """  # noqa: E501
+
+        @overload
+        def create_token_payment(
+            self: 'EPointClientClass[_Async]',
+            amount: Numeric,
+            currency: str,
+            order_id: str,
+            description: Unset[str] = UNSET,
+        ) -> Coroutine[Any, Any, APIResponse[TokenPaymentResponseSchema]]: ...
+        def create_token_payment(self, *args: Any, **kwds: Any) -> Any: ...
+
+        @overload
+        def apple_pay_session(
+            self: 'EPointClientClass[_Sync]',
+            origin: str,
+        ) -> APIResponse[dict]:
+            """Apple Pay session-u almaq sorğusu
+
+            **Endpoint:** */api/1/token/apple/session*
+
+            Example:
+                ```python
+                from integrify.epoint import EPointRequest
+
+                EPointRequest.apple_pay_session(origin='https://yoursite.az')
+                ```
+
+            **Cavab formatı**: `dict` (Apple merchant session obyekti, olduğu kimi)
+
+            Apple Pay-in əlavə təhlükəsizlik qatı var: SDK ödəniş pəncərəsini açmazdan əvvəl
+            sizin backend-inizdəki session endpoint-inə (məs., `/epoint/apple/session`) POST
+            sorğusu göndərir. Həmin endpoint bu sorğunu çağırıb, `resp.body`-ni olduğu kimi
+            geri qaytarmalıdır.
+
+            Args:
+                origin: Ödəniş səhifəsinin açıldığı saytın origin-i (məs., `https://yoursite.az`).
+                        Adətən daxil olan sorğunun `Origin` header-indən götürülür.
+            """  # noqa: E501
+
+        @overload
+        def apple_pay_session(
+            self: 'EPointClientClass[_Async]',
+            origin: str,
+        ) -> Coroutine[Any, Any, APIResponse[dict]]: ...
+        def apple_pay_session(self, *args: Any, **kwds: Any) -> Any: ...
+
+        @overload
+        def apple_pay(
+            self: 'EPointClientClass[_Sync]',
+            payment_id: int | str,
+            token: Any,
+            billing_contact: Any = None,
+        ) -> APIResponse[TokenPayResponseSchema]:
+            """Apple Pay ilə ödənişi tamamlama sorğusu
+
+            **Endpoint:** */api/1/token/apple/pay*
+
+            Example:
+                ```python
+                from integrify.epoint import EPointRequest
+
+                # body: SDK-nın sizin `/epoint/apple` endpoint-inə göndərdiyi JSON
+                EPointRequest.apple_pay(
+                    payment_id=body['id'],
+                    token=body['token'],
+                    billing_contact=body.get('billingContact'),
+                )
+                ```
+
+            **Cavab formatı**: [`TokenPayResponseSchema`][integrify.epoint.schemas.response.TokenPayResponseSchema]
+
+            Session uğurla yaradıldıqdan və istifadəçi Apple Pay pəncərəsində ödənişi
+            təsdiqlədikdən sonra (kart seçimi, təsdiq), SDK sizin backend-inizdəki pay
+            endpoint-inə (məs., `/epoint/apple`) `id`, `token` və `billingContact` göndərir.
+            Həmin endpoint bu sorğunu çağırıb, `resp.body`-ni olduğu kimi geri qaytarmalıdır.
+            `public_key` avtomatik əlavə olunur.
+
+            Args:
+                payment_id: Token ödənişinin IDsi (SDK sorğusundakı `id`).
+                token: Apple Pay token-i (SDK sorğusundakı `token`).
+                billing_contact: Ödəyicinin billing məlumatı (SDK sorğusundakı `billingContact`).
+            """  # noqa: E501
+
+        @overload
+        def apple_pay(
+            self: 'EPointClientClass[_Async]',
+            payment_id: int | str,
+            token: Any,
+            billing_contact: Any = None,
+        ) -> Coroutine[Any, Any, APIResponse[TokenPayResponseSchema]]: ...
+        def apple_pay(self, *args: Any, **kwds: Any) -> Any: ...
+
+        @overload
+        def google_pay(
+            self: 'EPointClientClass[_Sync]',
+            payment_id: int | str,
+            token: Any,
+            billing_contact: Any = None,
+        ) -> APIResponse[TokenPayResponseSchema]:
+            """Google Pay ilə ödənişi tamamlama sorğusu
+
+            **Endpoint:** */api/1/token/google/pay*
+
+            Example:
+                ```python
+                from integrify.epoint import EPointRequest
+
+                # body: SDK-nın sizin `/epoint/google` endpoint-inə göndərdiyi JSON
+                EPointRequest.google_pay(
+                    payment_id=body['id'],
+                    token=body['token'],
+                    billing_contact=body.get('billingContact'),
+                )
+                ```
+
+            **Cavab formatı**: [`TokenPayResponseSchema`][integrify.epoint.schemas.response.TokenPayResponseSchema]
+
+            Apple Pay ilə eynidir, yalnız endpoint fərqlidir və session mərhələsi yoxdur.
+            İstifadəçi Google Pay pəncərəsində ödənişi təsdiqlədikdən sonra, SDK sizin
+            backend-inizdəki pay endpoint-inə (məs., `/epoint/google`) `id`, `token` və
+            `billingContact` göndərir. Həmin endpoint bu sorğunu çağırıb, `resp.body`-ni
+            olduğu kimi geri qaytarmalıdır. `public_key` avtomatik əlavə olunur.
+
+            Args:
+                payment_id: Token ödənişinin IDsi (SDK sorğusundakı `id`).
+                token: Google Pay token-i (SDK sorğusundakı `token`).
+                billing_contact: Ödəyicinin billing məlumatı (SDK sorğusundakı `billingContact`).
+            """  # noqa: E501
+
+        @overload
+        def google_pay(
+            self: 'EPointClientClass[_Async]',
+            payment_id: int | str,
+            token: Any,
+            billing_contact: Any = None,
+        ) -> Coroutine[Any, Any, APIResponse[TokenPayResponseSchema]]: ...
+        def google_pay(self, *args: Any, **kwds: Any) -> Any: ...
 
 
 EPointRequest: 'EPointClientClass[_Sync]' = EPointClientClass(sync=True)
