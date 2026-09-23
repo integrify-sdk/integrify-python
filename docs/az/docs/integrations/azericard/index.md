@@ -12,6 +12,35 @@
 
 [İngliscə](https://developer.azericard.com/en)
 
+Markdown versiyası (bu saytda): [Azericard E-Commerce API](./official/api.md)
+
+## Sürətli başlanğıc { #quickstart }
+
+Azericard-da sorğunu brauzer göndərir: kitabxana form datasını hazırlayır, siz isə HTML formu front-a qaytarırsınız:
+
+```python
+from integrify.azericard import AzeriCardClient
+from integrify.azericard.helpers import json_to_html_form
+from integrify.azericard.schemas.enums import AuthorizationType
+
+# 1. Form datasını hazırlayın (Azericard-a sorğunu brauzer göndərir)
+req = AzeriCardClient.authorization(
+    amount=10,
+    currency='AZN',
+    order='12345678',
+    desc='Sifariş #1',
+    trtype=AuthorizationType.DIRECT,
+)
+
+# 2. HTML formu front-a qaytarın: submit olunduqda müştəri ödəniş səhifəsinə keçir
+html_form = json_to_html_form(req, with_submit=True)
+print(html_form)
+
+# 3. Nəticə AZERICARD_CALLBACK_URL-ə POST sorğusu kimi gəlir (bax: "Callback Sorğusu")
+```
+
+Asinxron istifadə üçün `AzeriCardAsyncClient` import edib, eyni metodları `await` ilə çağırın.
+
 ## Sorğular listi { #list-of-requests }
 
 | Sorğu metodu                                                                                       | Məqsəd                                               |                      Azericard API                       |
@@ -29,22 +58,7 @@
 
 Nəzərə alsaq ki, Azericard form submission qəbul edərək, sizə redirectsiz səhifəni açır, form-u backend-dən submit etmık mümkün deyil, məhz front tərəfdən olmalıdır. Ona görə, başqa inteqrasiyalardan fərqli olaraq, Azericard-da kitabxana sorğu atmır, form-da göndərilməli olan data-nı qaytarır. Format JSON olsa da, köməkçi funksiyadan istifadə edərək, HTML formu alın, front-a response kimi göndərə bilərsiniz:
 
-```python
-from integrify.azericard.client import AzericardClient
-from integrify.azericard.helpers import json_to_html_form
-
-req = AzericardClient.pay(
-    amount=1,
-    currency='AZN',
-    order='12345678',
-    desc='test',
-    country='AZ',
-)
-
-form = json_to_html_form(req)
-print(form)  # <form action="https://testmpi.3dsecure.az/cgi-bin/cgi_link" method="POST">
-#   <input type="hidden" name="ORDER" value="12345678"> ...
-```
+Nümunə üçün yuxarıdakı [Sürətli başlanğıc](#quickstart) bölməsinə baxın.
 
 ## Callback Sorğusu { #callback-request }
 

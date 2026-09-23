@@ -1,9 +1,0 @@
-Clopos:
-  - "integrations/clopos/index.md"
-  - "integrations/clopos/env.md"
-  - API Reference:
-    - API Client: "integrations/clopos/api-reference/client.md"
-    - Schemas:
-      - Response: "integrations/clopos/api-reference/response.md"
-      - Enums: "integrations/clopos/api-reference/enums.md"
-    - "integrations/clopos/api-reference/helper-functions.md"

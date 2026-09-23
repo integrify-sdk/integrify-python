@@ -18,6 +18,33 @@
 
 [AZ, EN, RU](https://pg.kapitalbank.az/docs)
 
+Markdown versiyası (bu saytda): [Kapital Bank E-commerce API](./official/api.md)
+
+## Sürətli başlanğıc { #quickstart }
+
+Sifariş yaratmaq, müştərini bankın ödəniş səhifəsinə yönləndirmək və statusu yoxlamaq:
+
+```python
+from integrify.kapitalbank import KapitalRequest
+
+# 1. Sifariş yaradın
+resp = KapitalRequest.create_order(amount=10, currency='AZN', description='Sifariş #1')
+
+if resp.ok:
+    order = resp.body.data
+
+    # 2. Müştərini bankın ödəniş səhifəsinə yönləndirin
+    print(order.redirect_url)
+
+    # 3. Müştəri KAPITAL_REDIRECT_URL-ə qayıtdıqdan sonra statusu yoxlayın
+    info = KapitalRequest.get_order_information(order_id=order.id)
+    print(info.body.data.status)  # FullyPaid, Declined, Cancelled, ...
+else:
+    print(resp.body.error)
+```
+
+Asinxron istifadə üçün `KapitalAsyncRequest` import edib, eyni metodları `await` ilə çağırın.
+
 ## Sorğular listi { #list-of-requests }
 
 | Sorğu metodu                                                                                         | Məqsəd                                             |            Kapital API            |  Callback-ə sorğu atılır  |
