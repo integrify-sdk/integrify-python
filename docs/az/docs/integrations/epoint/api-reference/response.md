@@ -16,6 +16,14 @@
 
 ::: integrify.epoint.schemas.response.SplitPayWithSavedCardResponseSchema
 
+## Apple Pay & Google Pay
+
+::: integrify.epoint.schemas.response.WidgetResponseSchema
+
+::: integrify.epoint.schemas.response.TokenPaymentResponseSchema
+
+::: integrify.epoint.schemas.response.TokenPayResponseSchema
+
 ## Extra
 
 ::: integrify.epoint.schemas.response.BaseWithCodeSchema

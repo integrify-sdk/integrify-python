@@ -65,6 +65,11 @@ Sorğular uğurlu və ya uğursuz olduqda, spesifik URL-ə yönləndirmək istə
 | `split_pay`                 | Ödənişi başqa EPoint istifadəçisi ilə bölüb ödəmə                    |          `/api/1/split-request`           |            ✅            |
 | `split_pay_with_saved_card` | Saxlanılmış kartla ödənişi başqa EPoint istifadəçisi ilə bölüb ödəmə |        `/api/1/split-execute-pay`         |            ❌            |
 | `split_pay_and_save_card`   | Ödənişi başqa EPoint istifadəçisi ilə bölüb ödəmə və kartı saxlamaq  | `/api/1/split-card-registration-with-pay` |            ✅            |
+| `create_widget`             | Apple Pay/Google Pay widget-i yaratmaq                               |          `/api/1/token/widget`            |            ❌            |
+| `create_token_payment`      | Apple Pay/Google Pay üçün token ödənişi yaratmaq                     |          `/api/1/token/payment`           |            ❌            |
+| `apple_pay_session`         | Apple Pay session-u almaq                                            |       `/api/1/token/apple/session`        |            ❌            |
+| `apple_pay`                 | Apple Pay ilə ödənişi tamamlamaq                                     |         `/api/1/token/apple/pay`          |            ❌            |
+| `google_pay`                | Google Pay ilə ödənişi tamamlamaq                                    |         `/api/1/token/google/pay`         |            ❌            |
 
 ### Callback Sorğusu
 

@@ -36,6 +36,13 @@ class API(str, Enum):
     SPLIT_PAY_WITH_SAVED_CARD = '/api/1/split-execute-pay'
     SPLIT_PAY_AND_SAVE_CARD = '/api/1/split-card-registration-with-pay'
 
+    # Apple Pay & Google Pay
+    CREATE_WIDGET = '/api/1/token/widget'
+    CREATE_TOKEN_PAYMENT = '/api/1/token/payment'  # nosec: B105
+    APPLE_PAY_SESSION = '/api/1/token/apple/session'
+    APPLE_PAY = '/api/1/token/apple/pay'
+    GOOGLE_PAY = '/api/1/token/google/pay'
+
 
 __all__ = [
     'VERSION',
